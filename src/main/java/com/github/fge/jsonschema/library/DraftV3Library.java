@@ -20,7 +20,7 @@
 package com.github.fge.jsonschema.library;
 
 import com.github.fge.jsonschema.core.keyword.syntax.dictionaries.DraftV3SyntaxCheckerDictionary;
-import com.github.fge.jsonschema.library.digest.DraftV3DigesterDictionary;
+import com.github.fge.jsonschema.library.digest.DictionaryFactory;
 import com.github.fge.jsonschema.library.format.DraftV3FormatAttributesDictionary;
 import com.github.fge.jsonschema.library.validator.DraftV3ValidatorDictionary;
 
@@ -31,7 +31,7 @@ public final class DraftV3Library
 {
     private static final Library LIBRARY = new Library(
         DraftV3SyntaxCheckerDictionary.get(),
-        DraftV3DigesterDictionary.get(),
+        DictionaryFactory.get(DictionaryFactory.Type.DraftV3DigesterDictionary),
         DraftV3ValidatorDictionary.get(),
         DraftV3FormatAttributesDictionary.get()
     );

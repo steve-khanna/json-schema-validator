@@ -21,7 +21,7 @@ package com.github.fge.jsonschema.keyword.digest.draftv4;
 
 import com.github.fge.jackson.NodeType;
 import com.github.fge.jsonschema.keyword.digest.AbstractDigesterTest;
-import com.github.fge.jsonschema.library.digest.DraftV4DigesterDictionary;
+import com.github.fge.jsonschema.library.digest.DictionaryFactory;
 
 import java.io.IOException;
 
@@ -32,7 +32,7 @@ public abstract class DraftV4DigesterTest
         final NodeType... other)
         throws IOException
     {
-        super(DraftV4DigesterDictionary.get(), "draftv4", keyword, first,
+        super(DictionaryFactory.get(DictionaryFactory.Type.DraftV4DigesterDictionary), "draftv4", keyword, first,
             other);
     }
 }

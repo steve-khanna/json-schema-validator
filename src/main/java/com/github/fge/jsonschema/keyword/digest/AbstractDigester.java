@@ -19,38 +19,63 @@
 
 package com.github.fge.jsonschema.keyword.digest;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.fge.jackson.JacksonUtils;
 import com.github.fge.jackson.NodeType;
+import com.google.common.collect.Lists;
 
 import java.util.EnumSet;
+import java.util.List;
 
 /**
  * Base abstract digester class for all keyword digesters
  */
 public abstract class AbstractDigester
-    implements Digester
-{
+        implements Digester {
     protected static final JsonNodeFactory FACTORY = JacksonUtils.nodeFactory();
     private final EnumSet<NodeType> types;
     protected final String keyword;
 
+    protected ObjectNode ret;
+    protected ObjectNode propertyDeps;
+    protected ArrayNode schemaDeps;
+    protected List<String> list;
+
     protected AbstractDigester(final String keyword, final NodeType first,
-        final NodeType... other)
-    {
+                               final NodeType... other) {
         this.keyword = keyword;
         types = EnumSet.of(first, other);
     }
 
     @Override
-    public final EnumSet<NodeType> supportedTypes()
-    {
+    public final EnumSet<NodeType> supportedTypes() {
         return EnumSet.copyOf(types);
     }
 
     @Override
-    public final String toString()
-    {
+    public final String toString() {
         return "digester for keyword \"" + keyword + '"';
     }
+
+    public void digestFactory() {
+        this.ret = FACTORY.objectNode();
+
+        this.propertyDeps = FACTORY.objectNode();
+        this.ret.set("propertyDeps", propertyDeps);
+
+        this.schemaDeps = FACTORY.arrayNode();
+        this.ret.set("schemaDeps", schemaDeps);
+
+        this.list = Lists.newArrayList();
+
+    }
 }
+
+
+
+
+
+
+
