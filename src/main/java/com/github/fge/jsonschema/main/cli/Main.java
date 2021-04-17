@@ -72,7 +72,7 @@ public final class Main
         final boolean isSyntax;
         final int requiredArgs;
 
-        Reporter reporter = Reporters.DEFAULT;
+        Reporter reporter = AbstractReporter.Reporters.DEFAULT;
         String fakeRoot = null;
 
         try {
@@ -118,11 +118,11 @@ public final class Main
             files.add(new File(target).getCanonicalFile());
 
         if (optionSet.has("brief"))
-            reporter = Reporters.BRIEF;
+            reporter = (Reporter) NotJustBriefDecorator.Reporters.NOT_JUST_BRIEF;
         else if (optionSet.has("quiet")) {
             System.out.close();
             System.err.close();
-            reporter = Reporters.QUIET;
+            reporter = AbstractReporter.Reporters.QUIET;
         }
 
         new Main(fakeRoot).proceed(reporter, files, isSyntax);
